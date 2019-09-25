@@ -88,3 +88,17 @@ proc walk*(walker: var Walker) =
   else:
     for index in countdown(points.high, points.low, 1):
       walker.canvas.setPixel(points[index][0],points[index][1],color)
+      
+proc walkTo*(walker: var Walker, pointB: (int, int)) =
+  let startPos = walker.position
+  let color = walker.color
+  
+  let endPos = pointB
+  let (points, swapped) = linePoints(startPos,endPos)
+  walker.position = endPos
+  if not swapped:
+    for i in points:
+      walker.canvas.setPixel(i[0],i[1],color)
+  else:
+    for index in countdown(points.high, points.low, 1):
+      walker.canvas.setPixel(points[index][0],points[index][1],color)
