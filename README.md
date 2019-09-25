@@ -1,9 +1,7 @@
 # nimDraw
 A simple drawing package for nim
 
-# you can draw only line using nimDraw
-
-in future try to implement some of the features listed below
+only single pixel line drawing is supported. in future try to implement some of the features listed below
 - flood fill
 - shape fill
 - line width
