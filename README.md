@@ -10,7 +10,7 @@ in future try to implement some of the features listed below
 - storing mechanism of shape steps
 - text insertion
 ```
-Angle   90deg
+Angle   90 deg
           |
 0 deg ----|---- 180 deg
           |
