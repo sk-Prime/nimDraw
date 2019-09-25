@@ -1,6 +1,6 @@
 import nimDraw
 var turtle = newWalker((400,400),(150,250),length= 100, angle= 0)
-
+                       #canvas,  starting positin
 proc drawRect() =
   for i in 0..3:
     turtle.walk()
