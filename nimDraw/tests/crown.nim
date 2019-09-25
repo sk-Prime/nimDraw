@@ -1,35 +1,32 @@
 import nimDraw
 #demo of manual control
-var turtle = newWalker((400,400),(100,240),length= 100, angle= 10)
+var turtle = newWalker((400,400),(120,240),length= 100, angle= 0)
 
-var startpos = turtle.position
+let startpos = turtle.position
 
-turtle.angle = -110
+turtle.angle = 60
 turtle.walk()
 
 turtle.length = 70
-turtle.angle = 30
+turtle.angle = 210
 turtle.walk()
 
 turtle.length = 100
-turtle.angle = -40
+turtle.angle = 130
 turtle.walk()
 
 turtle.length = 100
-turtle.angle = 40
+turtle.angle = -130
 turtle.walk()
 
 turtle.length = 70
-turtle.angle = -30
+turtle.angle = -210
 turtle.walk()
 
 turtle.length = 100
-turtle.angle = 110
+turtle.angle = -60
 turtle.walk()
 
-turtle.position = startpos
-turtle.angle = 0
-turtle.length = 205
-turtle.walk()
+turtle.walkTo(startpos)
 
 discard turtle.canvas.saveAsPng("crown.png")

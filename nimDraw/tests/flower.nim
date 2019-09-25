@@ -2,7 +2,7 @@ import nimDraw
 import random
 
 randomize()
-var turtle = newWalker((400,400),(200,140),length= 20, angle= 10)
+var turtle = newWalker((400,400),(200,255),length= 20, angle= 10)
 
 proc colorGen():RGBA=
   let r = rand(255).uint8
