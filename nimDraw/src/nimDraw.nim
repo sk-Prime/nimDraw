@@ -42,7 +42,7 @@ proc linePoints(pointA: (int, int), pointB: (int,int)): (seq[(int,int)],bool) =
       ystep = if y1 < y2: 1 else: -1
       y = y1
     
-    for x in countup(x1, x2 + 1,1):
+    for x in countup(x1, x2, 1):
       var coord = if is_steep: (y,x) else: (x, y)
       points.add(coord)
       error -= abs(dy)
