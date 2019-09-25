@@ -9,7 +9,7 @@ type
     angle*  : int
     color*  : RGBA
 
-proc linePoints(pointA: (int, int), pointB: (int,int)): (seq[(int,int)],bool) =
+proc linePoints*(pointA: (int, int), pointB: (int,int)): (seq[(int,int)],bool) =
     ##port of Bresenham python algorithm from here http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm
     var 
       (x1, y1) = pointA
@@ -42,14 +42,13 @@ proc linePoints(pointA: (int, int), pointB: (int,int)): (seq[(int,int)],bool) =
       ystep = if y1 < y2: 1 else: -1
       y = y1
     
-    for x in countup(x1, x2, 1):
+    for x in countup(x1, x2,1):
       var coord = if is_steep: (y,x) else: (x, y)
       points.add(coord)
       error -= abs(dy)
       if error < 0:
         y += ystep
         error += dx
-        
     return (points, swapped)
 
 proc angleToCartesian(angle= 90, radius= 100): (int, int) =
@@ -61,6 +60,16 @@ proc angleToCartesian(angle= 90, radius= 100): (int, int) =
 proc fixCartesian(cartPoint: (int,int), pointStart: (int,int)):(int,int)=
   let fixedPoint = (cartPoint[0]+pointStart[0],cartPoint[1]+pointStart[1])
   return fixedPoint 
+
+proc pointsLoop(canvas: var Canvas, pointsData: (seq[(int,int)],bool), color: RGBA) =
+  let (points, swapped) = pointsData
+  if not swapped:
+    for i in points:
+      canvas.setPixel(i[0],i[1],color)
+  else:
+    for index in countdown(points.high, points.low, 1):
+      let i = points[index]
+      canvas.setPixel(i[0],i[1],color)
 
 proc newWalker*(field: (int,int), startPos:(int, int), length= 10, angle= 90, color= defaultWhite, bg= defaultBlack):Walker =
   let canvas = newCanvas(field[0],field[1],bg)
@@ -78,27 +87,23 @@ proc walk*(walker: var Walker) =
   let angle = walker.angle
   let length = walker.length
   let color = walker.color
-  
   let endPos = fixCartesian(angleToCartesian(angle, length),startPos)
-  let (points, swapped) = linePoints(startPos,endPos)
   walker.position = endPos
-  if not swapped:
-    for i in points:
-      walker.canvas.setPixel(i[0],i[1],color)
-  else:
-    for index in countdown(points.high, points.low, 1):
-      walker.canvas.setPixel(points[index][0],points[index][1],color)
+  pointsLoop(walker.canvas, linePoints(startPos,endPos),  color)
+  
       
 proc walkTo*(walker: var Walker, pointB: (int, int)) =
   let startPos = walker.position
   let color = walker.color
+  walker.position = pointB
+  pointsLoop(walker.canvas, linePoints(startPos,pointB),  color)
   
-  let endPos = pointB
-  let (points, swapped) = linePoints(startPos,endPos)
-  walker.position = endPos
-  if not swapped:
-    for i in points:
-      walker.canvas.setPixel(i[0],i[1],color)
-  else:
-    for index in countdown(points.high, points.low, 1):
-      walker.canvas.setPixel(points[index][0],points[index][1],color)
+proc turn*(walker: var Walker, degree : int) =
+  walker.angle += degree
+
+proc addLen*(walker: var Walker, length : int, factor = 1) =
+  walker.length += (length * factor)
+
+when isMainModule:
+  var turtle = newWalker((400,400),(250,250),length= 100, angle= 90)
+  turtle.walk()
