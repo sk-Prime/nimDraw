@@ -100,6 +100,10 @@ proc walkTo*(walker: var Walker, pointB: (int, int)) =
   
 proc turn*(walker: var Walker, degree : int) =
   walker.angle += degree
+  if walker.angle > 360:
+    walker.angle = walker.angle mod 360
+  elif walker.angle < 0:
+    walker.angle = 360 - abs(walker.angle)
 
 proc addLen*(walker: var Walker, length : int, factor = 1) =
   walker.length += (length * factor)
