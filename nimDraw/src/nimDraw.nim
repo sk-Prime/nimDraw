@@ -54,8 +54,8 @@ proc linePoints(pointA: (int, int), pointB: (int,int)): (seq[(int,int)],bool) =
 
 proc angleToCartesian(angle= 90, radius= 100): (int, int) =
   let radian = degToRad(angle.float)
-  let x = int(round(radius.float * cos(radian)))
-  let y = int(round(radius.float * sin(radian)))
+  let x = - int(round(radius.float * cos(radian)))
+  let y = - int(round(radius.float * sin(radian)))
   return (x,y) #provide ratio, need to fixed by given starting point
 
 proc fixCartesian(cartPoint: (int,int), pointStart: (int,int)):(int,int)=
