@@ -10,9 +10,10 @@ only single pixel line drawing is supported. in future try to implement some of 
 ```
 Angle   90 deg
           |
-0 deg ----|---- 180 deg
+0 deg ----|---- 180 deg or -0 deg
           |
         270 deg
+        -90 deg
 ```
 Go to test folder to see some examples
 
