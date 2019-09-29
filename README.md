@@ -1,7 +1,8 @@
 # nimDraw
 A simple drawing package for nim
-# Dependency
+### Dependency
 - <a href="https://github.com/jangko/nimPNG">nimPNG</a>
+
 only single pixel line drawing is supported. in future try to implement some of the features listed below
 - flood fill
 - shape fill
