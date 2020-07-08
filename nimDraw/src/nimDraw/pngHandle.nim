@@ -1,4 +1,4 @@
-import nimpng
+import nimPNG as nimpng
 type
   RGBA*    = object
     r : uint8
